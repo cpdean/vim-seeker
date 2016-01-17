@@ -29,6 +29,7 @@ endif
 " want
 let g:SEEKERDEBUG = 0
 function! SeekerGoToDefinition()
+    " save current word to register 's'
     normal! "syiw
     let ccol = col(".")-1
     let cline = line(".")-1
@@ -45,11 +46,15 @@ function! SeekerGoToDefinition()
     if(g:SEEKERDEBUG == 1)
         echo res
     endif
-    " echo res " figure out error handling
-    let fname = split(res, " ")[0]
-    let linenum = split(res,  " ")[1]
-    let colnum = split(res, " ")[2]
-    call SeekerJumpToLocation(fname, linenum, colnum)
+    if res =~ "^MATCH"
+        " echo res " figure out error handling
+        let fname = split(res, " ")[1]
+        let linenum = split(res,  " ")[2]
+        let colnum = split(res, " ")[3]
+        call SeekerJumpToLocation(fname, linenum, colnum)
+    else
+        echo res
+    endif
 endfunction
 
 function! SeekerJumpToLocation(filename, linenum, colnum)
