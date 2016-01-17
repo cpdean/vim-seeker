@@ -47,7 +47,6 @@ function! SeekerGoToDefinition()
         echo res
     endif
     if res =~ "^MATCH"
-        " echo res " figure out error handling
         let fname = split(res, " ")[1]
         let linenum = split(res,  " ")[2]
         let colnum = split(res, " ")[3]
