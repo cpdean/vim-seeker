@@ -28,6 +28,15 @@ endif
 
 " want
 let g:SEEKERDEBUG = 0
+function! SeekerToggleDebugMode()
+    if(g:SEEKERDEBUG == 1)
+        let g:SEEKERDEBUG = 0
+    else
+        let g:SEEKERDEBUG = 1
+    endif
+    echo "set seeker debug to ".g:SEEKERDEBUG
+endfunction
+
 function! SeekerGoToDefinition()
     " save current word to register 's'
     normal! "syiw
@@ -37,15 +46,18 @@ function! SeekerGoToDefinition()
     let srcdir = "."
     let identifier = expand(@s)
 
-    let cmd = g:seeker_cmd." ".srcdir." ".fname." ".cline." ".ccol." ".identifier
+    if(g:SEEKERDEBUG == 1)
+        let debug_mode = "--debug"
+    else
+        let debug_mode = ""
+    endif
+
+    let cmd = g:seeker_cmd." ".srcdir." ".fname." ".cline." ".ccol." ".identifier." ".debug_mode
     if(g:SEEKERDEBUG == 1)
         echo cmd
     endif
 
     let res = system(cmd)
-    if(g:SEEKERDEBUG == 1)
-        echo res
-    endif
     if res =~ "^MATCH"
         let fname = split(res, " ")[1]
         let linenum = split(res,  " ")[2]
