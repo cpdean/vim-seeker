@@ -7,9 +7,27 @@ for the purposes of looking up documentation and how that code works.
 
 based heavily on https://github.com/racer-rust/vim-racer
 
+This is great for both moving around a project based on the context of where you're editing things,
+or as a means of looking up how your project dependencies work or are documented because you're
+jumping to the actual source of the functions you're calling.
+
 ## Installation
 
-You need [seeker](https://github.com/cpdean/seeker) installed on your path.  I currently clone the repo locally and `pip install -e .` it.
+*NOTE: still in initial development.  Haven't even tried to install it the right way*
+
+You need [seeker](https://github.com/cpdean/seeker) installed on your path.
+I currently clone the repo locally and `pip install -e .` it.
+
+You should be able to install it using Vundle or Pathogen in the usual ways.
+
+## Usage
+
+vim-seeker adds a new binding whenever you open an Elm file:
+
+`gd` - go to the definition of a function
+
+Because it does this with a regular jump, you can then use `CTRL-o` to jump back to where you were before, or `CTRL-i`
+to jump forwards through your jump history.
 
 ## Troubleshooting `seeker` bugs
 
